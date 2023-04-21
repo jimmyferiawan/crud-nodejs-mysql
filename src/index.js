@@ -1,6 +1,7 @@
 const express = require("express");
 const Moment = require("moment");
 const userRoute = require("./routes/user.route");
+const authRoute = require("./routes/auth.route");
 require('dotenv').config({
   path: "../"
 })
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRoute);
+app.use("/api/auth", authRoute);
 
 app.listen(PORT, () => {
   console.log(`app listening at http://localhost:${PORT}`);
