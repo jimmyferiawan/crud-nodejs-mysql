@@ -1,5 +1,6 @@
 const UserModel = require('../models/user.model')
 const userResponse = require('../views/user.response')
+const bcrypt = require('bcrypt')
 
 let createUser = (req, res) => {
     if (!req.body.username || !req.body.password || !req.body.fullname || !req.body.contact) {
@@ -12,7 +13,7 @@ let createUser = (req, res) => {
 
     const User1 = {
         username: req.body.username,
-        password: req.body.password,
+        password: bcrypt.hashSync(req.body.password, 12),
         fullname: req.body.fullname,
         designation: 1,
         contact: req.body.contact,
