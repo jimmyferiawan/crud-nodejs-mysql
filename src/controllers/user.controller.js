@@ -22,12 +22,23 @@ let createUser = (req, res) => {
 
     UserModel.create(User1)
         .then(data => {
-            res.status(201).send(User1)
+            console.log("data")
+            console.log(data);
+            res.status(201).send(userResponse(data))
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occured, please try again later."
-            })
+            console.log('UserModel.create error')
+            console.log(err)
+            if (err.name === 'SequelizeUniqueConstraintError') {
+                res.status(403).send({
+                    message: "Username already exists"
+                })
+            } else {
+                res.status(500).send({
+                    message: err.message || "Some error occured, please try again later."
+                })
+            }
+            
         })
 }
 
